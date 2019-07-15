@@ -53,7 +53,7 @@ public class SpotifyService {
 	        return response;
 	    } else {
 	        System.out.println("POST request not worked");
-	        return con;
+	        return responseCode;
 	    }
 	}
 }
