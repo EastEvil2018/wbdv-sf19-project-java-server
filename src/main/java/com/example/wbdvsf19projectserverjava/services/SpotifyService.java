@@ -21,7 +21,8 @@ public class SpotifyService {
 	    URL obj = new URL("https://accounts.spotify.com/api/token");
 	    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 	    con.setRequestMethod("POST");
-	            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+	    con.setRequestProperty("Content-Type", 
+	    		"application/x-www-form-urlencoded");
 	    con.setRequestProperty("Authorization",
 	            "Basic " + basicAuth);
 	    con.setRequestProperty("Accept",
@@ -54,7 +55,7 @@ public class SpotifyService {
 	        return response;
 	    } else {
 	        System.out.println("POST request not worked");
-	        return "Error";
+	        return responseCode;
 	    }
 	}
 }
