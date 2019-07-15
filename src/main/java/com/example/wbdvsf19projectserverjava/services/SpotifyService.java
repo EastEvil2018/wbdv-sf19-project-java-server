@@ -26,7 +26,7 @@ public class SpotifyService {
 	    con.setRequestProperty("Authorization",
 	            "Basic " + basicAuth);
 	    con.setRequestProperty("Accept",
-	            "application/x-www-form-urlencoded");
+	            "application/json");
 
 	    // For POST only - START
 	    con.setDoOutput(true);
