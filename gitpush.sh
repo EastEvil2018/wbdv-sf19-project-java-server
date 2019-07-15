@@ -5,7 +5,7 @@ read commitMessage
 
 git commit -m "$commitMessage"
 
-git push
+git push origin master
 
 git push heroku master
 
