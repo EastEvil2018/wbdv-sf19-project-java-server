@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -55,7 +53,7 @@ public class SpotifyService {
 	        return response;
 	    } else {
 	        System.out.println("POST request not worked");
-	        return responseCode;
+	        return con;
 	    }
 	}
 }
