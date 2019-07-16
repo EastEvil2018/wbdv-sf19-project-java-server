@@ -56,9 +56,4 @@ public class SpotifyService {
         System.out.println(token.toString());  
         return token;
 	}
-	
-	public Object search(String keyword, String accessToken) {
-		String URL = "https://api.spotify.com/v1/search";
-		return null;
-	}
 }

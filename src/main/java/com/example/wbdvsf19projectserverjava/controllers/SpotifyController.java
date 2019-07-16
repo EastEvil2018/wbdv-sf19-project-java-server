@@ -27,11 +27,4 @@ public class SpotifyController {
 	 @RequestBody String clientSecret) throws IOException, OAuthSystemException, OAuthProblemException {
 		return spotifyService.requestAccessToken(clientId, clientSecret);
 	}
-	
-	@PostMapping("/api/search/{keyword}")
-	public Object search
-	(@PathVariable("keyword") String keyword,
-	 @RequestBody String accessToken) {
-		return spotifyService.search(keyword, accessToken);
-	}
 }
