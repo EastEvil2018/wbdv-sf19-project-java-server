@@ -7,53 +7,58 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
+
+import org.apache.oltu.oauth2.client.OAuthClient;
+import org.apache.oltu.oauth2.client.URLConnectionClient;
+import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
+import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
+import org.apache.oltu.oauth2.common.OAuth;
+import org.apache.oltu.oauth2.common.OAuthProviderType;
+import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+import org.apache.oltu.oauth2.common.message.types.GrantType;
+
+
 
 @Service
 public class SpotifyService {
 	
-	public Object requestAccessToken(String clientId, String clientSecret) throws IOException {
+	public Object requestAccessToken(String clientId, String clientSecret) throws IOException, OAuthSystemException, OAuthProblemException {
 	    String POST_PARAMS = "grant_type=client_credentials";
 	    String userCredentials = clientId + ":" + clientSecret;
 	    String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
-	    URL obj = new URL("https://accounts.spotify.com/api/token");
-	    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-	    con.setRequestMethod("POST");
-	    con.setRequestProperty("Content-Type", 
-	    		"application/x-www-form-urlencoded");
-	    con.setRequestProperty("Authorization",
-	            "Basic " + basicAuth);
-	    con.setRequestProperty("Accept",
-	            "application/json");
+	    String URL = "https://accounts.spotify.com/api/token";
 
-	    // For POST only - START
-	    con.setDoOutput(true);
-	    OutputStream os = con.getOutputStream();
-	    os.write(POST_PARAMS.getBytes());
-	    os.flush();
-	    os.close();
-	    // For POST only - END
+	    OAuthClient client = new OAuthClient(new URLConnectionClient());
 
-	    int responseCode = con.getResponseCode();
-	    System.out.println("POST Response Code :: " + responseCode);
-
-	    if (responseCode == HttpURLConnection.HTTP_OK) { //success
-	        BufferedReader in = new BufferedReader(new InputStreamReader(
-	                con.getInputStream()));
-	        String inputLine;
-	        StringBuffer response = new StringBuffer();
-
-	        while ((inputLine = in.readLine()) != null) {
-	            response.append(inputLine);
-	        }
-	        in.close();
-
-	        // print result
-	        System.out.println(response.toString());
-	        return response;
-	    } else {
-	        System.out.println("POST request not worked");
-	        return responseCode;
-	    }
+        OAuthClientRequest request =
+                OAuthClientRequest.tokenLocation(URL)
+                .setGrantType(GrantType.CLIENT_CREDENTIALS)
+                .setClientId(clientId)
+                .setClientSecret(clientSecret)
+                .buildBodyMessage();
+        
+        String token = client.accessToken(request, OAuth.HttpMethod.POST, OAuthJSONAccessTokenResponse.class).getBody();
+        System.out.println(token.toString());  
+        return token;
+	}
+	
+	public Object search(String keyword, String accessToken) {
+		String URL = "https://api.spotify.com/v1/search";
+		return null;
 	}
 }

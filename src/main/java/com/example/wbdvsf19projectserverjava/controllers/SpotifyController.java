@@ -2,6 +2,8 @@ package com.example.wbdvsf19projectserverjava.controllers;
 
 import java.io.IOException;
 
+import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,14 @@ public class SpotifyController {
 	@PostMapping("/api/token/{clientId}")
 	public Object requestAccessToken
 	(@PathVariable("clientId") String clientId,
-	 @RequestBody String clientSecret) throws IOException {
+	 @RequestBody String clientSecret) throws IOException, OAuthSystemException, OAuthProblemException {
 		return spotifyService.requestAccessToken(clientId, clientSecret);
+	}
+	
+	@PostMapping("/api/search/{keyword}")
+	public Object search
+	(@PathVariable("keyword") String keyword,
+	 @RequestBody String accessToken) {
+		return spotifyService.search(keyword, accessToken);
 	}
 }
