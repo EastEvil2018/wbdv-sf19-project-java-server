@@ -26,7 +26,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/api/session/user")
-	public Object getCurrentUserFromSession(HttpSession session) {
+	public Object getCurrentUserIdFromSession(HttpSession session) {
 		if (session.getAttribute("userId") != null)
 			return session.getAttribute("userId");
 		else
