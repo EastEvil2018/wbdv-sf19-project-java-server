@@ -49,10 +49,10 @@ public class UserController {
 	}
 
 	@PostMapping("/api/users")
-	public List<User> createUser(
+	public User createUser(
         @RequestBody User newUser) {
         repository.save(newUser);
-        return repository.findAllUsers();
+        return newUser;
     }
 
     @GetMapping("/api/users")
@@ -67,13 +67,13 @@ public class UserController {
     }
 
     @PutMapping("/api/users/{uid}")
-    public List<User> updateUser(
+    public User updateUser(
         @PathVariable("uid") Integer id,
         @RequestBody User newUser) {
         User user = repository.findUserById(id);
         user.set(newUser);
         repository.save(user);
-        return repository.findAllUsers();
+        return newUser;
     }
 
     @DeleteMapping("/api/users/{uid}")
