@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.User;
-import com.example.wbdvsf19projectserverjava.services.UserService;
 
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 

@@ -1,15 +1,16 @@
 package com.example.wbdvsf19projectserverjava.controllers;
 
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.User;
-import com.example.wbdvsf19projectserverjava.services.UserService;
-
+import com.fasterxml.jackson.annotation.JsonTypeInfo.None;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,20 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins="*", maxAge=3600)
 public class UserController {
 	@Autowired
-	UserService userService;
-	
-	@Autowired
-	UserRepository repository;	
+	UserRepository userRepository;	
 
 	@PostMapping("/api/auth")
-	public int authenticateUser
-	(@RequestBody User user,
-	 HttpSession session) {
-		int userId = userService.authenticateUser(user);
-		if (userId != -1)
-			session.setAttribute("userId", userId);
-			
-		return userId;
+	public User authenticateUser(
+            @RequestBody User authUser,
+            HttpSession session) {
+        List<User> users = userRepository.findUserByCredentials(authUser.getUsername(), authUser.getPassword());
+        if (users.size() != 0) {
+            User user = users.get(0);
+            user.setPassword("");
+            session.setAttribute("user", user);
+            return user;
+        } else {
+            return null;
+        }
 	}
 	
 	@GetMapping("/api/session/user")
@@ -50,36 +52,36 @@ public class UserController {
 
 	@PostMapping("/api/users")
 	public User createUser(
-        @RequestBody User newUser) {
-        repository.save(newUser);
+            @RequestBody User newUser) {
+        userRepository.save(newUser);
         return newUser;
     }
 
     @GetMapping("/api/users")
     public List<User> findAllUsers() {
-        return repository.findAllUsers();
+        return userRepository.findAllUsers();
     }
 
     @GetMapping("/api/users/{uid}")
     public User findUserById(
         @PathVariable("uid") Integer id) {
-        return repository.findUserById(id);
+        return userRepository.findUserById(id);
     }
 
     @PutMapping("/api/users/{uid}")
     public User updateUser(
         @PathVariable("uid") Integer id,
         @RequestBody User newUser) {
-        User user = repository.findUserById(id);
+        User user = userRepository.findUserById(id);
         user.set(newUser);
-        repository.save(user);
+        userRepository.save(user);
         return newUser;
     }
 
     @DeleteMapping("/api/users/{uid}")
     public List<User> deleteUser(
         @PathVariable("uid") Integer id) {
-        repository.deleteById(id);
-        return repository.findAllUsers();
+        userRepository.deleteById(id);
+        return userRepository.findAllUsers();
     }
 }

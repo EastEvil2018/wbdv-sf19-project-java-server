@@ -11,7 +11,6 @@ import com.example.wbdvsf19projectserverjava.models.Comment;
 import com.example.wbdvsf19projectserverjava.models.Track;
 
 import com.example.wbdvsf19projectserverjava.models.User;
-import com.example.wbdvsf19projectserverjava.services.UserService;
 import com.example.wbdvsf19projectserverjava.repositories.CommentRepository;
 import com.example.wbdvsf19projectserverjava.repositories.TrackRepository;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;

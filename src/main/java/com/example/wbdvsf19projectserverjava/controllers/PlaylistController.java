@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.wbdvsf19projectserverjava.models.Playlist;
 import com.example.wbdvsf19projectserverjava.models.Track;
 import com.example.wbdvsf19projectserverjava.models.User;
-import com.example.wbdvsf19projectserverjava.services.UserService;
 import com.example.wbdvsf19projectserverjava.repositories.PlaylistRepository;
 import com.example.wbdvsf19projectserverjava.repositories.TrackRepository;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
