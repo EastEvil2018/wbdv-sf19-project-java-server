@@ -85,12 +85,12 @@ public class User {
 		this.role = role;
 	}
 
-	public String getProfilePhote() {
+	public String getProfilePhoto() {
 		return this.profilePhoto;
 	}
 
-	public void setProfilePhote(String profilePhote) {
-		this.profilePhoto = profilePhote;
+	public void setProfilePhoto(String profilePhoto) {
+		this.profilePhoto = profilePhoto;
 	}
 	
 	public int getId() {
