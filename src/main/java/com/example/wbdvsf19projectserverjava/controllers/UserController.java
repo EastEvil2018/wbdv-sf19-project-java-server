@@ -47,10 +47,13 @@ public class UserController {
 	
 	@GetMapping("/api/session/user")
 	public Object getCurrentUserIdFromSession(HttpSession session) {
-		if (session.getAttribute("userId") != null)
-			return session.getAttribute("userId");
-		else
-			return -1;
+		if (session.getAttribute("user") != null) {
+            return session.getAttribute("user");
+        } else {
+            Message message = new Message();
+            message.set("No user session");
+			return message;
+        }  
 	}
 
 	@PostMapping("/api/users")
