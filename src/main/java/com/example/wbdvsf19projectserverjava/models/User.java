@@ -76,11 +76,12 @@ public class User {
 		this.followers = followers;
 	}
 
-	public RoleType getUserType() {
+	
+	public RoleType getRole() {
 		return this.role;
 	}
 
-	public void setUserType(RoleType role) {
+	public void setRole(RoleType role) {
 		this.role = role;
 	}
 
