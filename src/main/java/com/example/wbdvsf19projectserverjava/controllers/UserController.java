@@ -9,6 +9,7 @@ import javax.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.wbdvsf19projectserverjava.models.Message;
 import com.example.wbdvsf19projectserverjava.models.User;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.None;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
@@ -28,7 +29,7 @@ public class UserController {
 	UserRepository userRepository;	
 
 	@PostMapping("/api/auth")
-	public User authenticateUser(
+	public Object authenticateUser(
             @RequestBody User authUser,
             HttpSession session) {
         List<User> users = userRepository.findUserByCredentials(authUser.getUsername(), authUser.getPassword());
@@ -38,7 +39,9 @@ public class UserController {
             session.setAttribute("user", user);
             return user;
         } else {
-            return null;
+            Message message = new Message();
+            message.set("Login failed");
+            return message;
         }
 	}
 	
