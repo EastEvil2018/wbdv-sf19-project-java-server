@@ -21,6 +21,9 @@ public class User {
 	private String lastName; 
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
+
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	private byte[] profilePhoto;
 
 	@ManyToMany
