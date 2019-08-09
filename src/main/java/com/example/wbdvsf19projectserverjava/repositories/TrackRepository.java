@@ -16,6 +16,6 @@ public interface TrackRepository
 	public List<Track> findAllTracks();
 
 	@Query("select track from Track track where track.id=:pid")
-	public Track findTrackById(@Param("pid") Integer id);
+	public Track findTrackById(@Param("pid") String id);
     
 }

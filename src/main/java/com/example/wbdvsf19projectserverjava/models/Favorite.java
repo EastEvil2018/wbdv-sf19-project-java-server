@@ -3,14 +3,15 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+enum ObjectType {
+    TRACK, ARTIST, ALBUM;
+}
 @Entity
-@Table(name = "comments")
-public class Comment {
+@Table(name = "favorites")
+public class Favorite {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
-	private String comment;
 
     @ManyToOne
     @JsonIgnore
@@ -27,14 +28,6 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getComment() {
-		return this.comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-    }
     
 	public String getObjectId() {
 		return this.objectId;
@@ -58,6 +51,6 @@ public class Comment {
 
 	public void setObjectType(ObjectType objectType) {
 		this.objectType = objectType;
-	}
+    }
 
 }

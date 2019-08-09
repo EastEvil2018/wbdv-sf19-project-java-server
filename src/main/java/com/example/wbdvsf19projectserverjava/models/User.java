@@ -19,6 +19,7 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName; 
+	@Enumerated(EnumType.STRING)
 	private UserType userType;
 	private String profilePhote;
 
@@ -36,7 +37,10 @@ public class User {
 	private List<Playlist> playlists;
 
 	@OneToMany(mappedBy = "user")
-	private List<TrackComment> trackComments;
+	private List<Comment> comments;
+
+	@OneToMany(mappedBy = "user")
+	private List<Favorite> favorites;
 
 	public void set(User newUser) {
 		this.username = newUser.username;
@@ -121,11 +125,19 @@ public class User {
 	}
 
 	
-	public List<TrackComment> getTrackComments() {
-		return this.trackComments;
+	public List<Comment> getComments() {
+		return this.comments;
 	}
 
-	public void setTrackComments(List<TrackComment> trackComments) {
-		this.trackComments = trackComments;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	public List<Favorite> getFavorites() {
+		return this.favorites;
+	}
+
+	public void setFavorites(List<Favorite> favorites) {
+		this.favorites = favorites;
 	}
 }

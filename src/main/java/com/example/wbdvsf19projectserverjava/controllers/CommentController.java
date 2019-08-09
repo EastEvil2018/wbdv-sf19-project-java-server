@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.Comment;
 import com.example.wbdvsf19projectserverjava.models.Track;
-import com.example.wbdvsf19projectserverjava.models.TrackComment;
+
 import com.example.wbdvsf19projectserverjava.models.User;
 import com.example.wbdvsf19projectserverjava.services.UserService;
-import com.example.wbdvsf19projectserverjava.repositories.TrackCommentRepository;
+import com.example.wbdvsf19projectserverjava.repositories.CommentRepository;
 import com.example.wbdvsf19projectserverjava.repositories.TrackRepository;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 
@@ -29,58 +29,65 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
 
 	@Autowired
-    TrackCommentRepository trackCommentRepository;	
+    CommentRepository commentRepository;	
     
     @Autowired
     UserRepository userRepository;	
-    
-    @Autowired
-	TrackRepository trackRepository;	
 
-	@PostMapping("/api/users/{uid}/comment/{type}/{id}")
-	public List<? extends Comment> createComment(
+	@PostMapping("/api/users/{uid}/comments")
+	public List<Comment> createComment(
         @PathVariable("uid") Integer userId,
-        @PathVariable("type") String commentType,
-        @PathVariable("id") Integer objectId,
         @RequestBody Comment comment) {
         User user = userRepository.findUserById(userId);
-        switch(commentType) {
-            case "Track":
-                Track track = trackRepository.findTrackById(objectId);
-                TrackComment trackComment = new TrackComment(comment);
-                user.getTrackComments().add(trackComment);
-                track.getTrackComments().add(trackComment);
-                trackCommentRepository.save(trackComment);
-                return trackCommentRepository.findTrackCommentsForUser(userId);
-            case "Album":
-                break;
-            case "Artist":
-                break;
-            default:
-                break;
-        }
-        return trackCommentRepository.findTrackCommentsForUser(userId);
+        comment.setUser(user);
+        commentRepository.save(comment);
+        return commentRepository.findCommentsForUser(userId);
+    }
+        // switch(commentType) {
+        //     case "Track":
+        //         Track track = trackRepository.findTrackById(objectId);
+        //         TrackComment trackComment = new TrackComment(comment);
+        //         user.getTrackComments().add(trackComment);
+        //         track.getTrackComments().add(trackComment);
+        //         trackCommentRepository.save(trackComment);
+        //         return trackCommentRepository.findTrackCommentsForUser(userId);
+        //     case "Album":
+        //         break;
+        //     case "Artist":
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+    @GetMapping("/api/comments") 
+    public List<Comment> findAllComments() {
+            return commentRepository.findAllComments();
     }
 
-    // @DeleteMapping("/api/users/{followerId}/unfollow/users/{followeeId}")
-	// public List<User> unfollowUser(
-    //     @PathVariable("followerId") Integer followerId,
-    //     @PathVariable("followeeId") Integer followeeId) {
-    //     User follower = repository.findUserById(followerId);
-    //     follower.getFollowings().remove(repository.findUserById(followeeId));
-    //     repository.save(follower);
-    //     return repository.findAllFollowingUsersById(followerId);
-    // }
+    @GetMapping("/api/comments/{cid}") 
+    public Comment findCommentById(
+            @PathVariable("cid") Integer cid) {
+            return commentRepository.findCommentById(cid);
+    }
 
-    // @GetMapping("/api/users/{uid}/followings") 
-    // public List<User> findAllFollowingUsers(
-    //     @PathVariable("uid") Integer uid) {
-    //         return repository.findAllFollowingUsersById(uid);
-    // }
+    @GetMapping("/api/users/{uid}/comments") 
+    public List<Comment> findAllCommentsForUser(
+        @PathVariable("uid") Integer uid) {
+            return commentRepository.findCommentsForUser(uid);
+    }
 
-    // @GetMapping("/api/users/{uid}/followers") 
-    // public List<User> findAllFollowerUsers(
-    //     @PathVariable("uid") Integer uid) {
-    //         return repository.findAllFollowerUsersById(uid);
-    // }
+    @GetMapping("/api/objects/{oid}/comments") 
+    public List<Comment> findAllCommentsForObject(
+            @PathVariable("oid") String oid) {
+        return commentRepository.findCommentsForObject(oid);
+    }
+
+    @DeleteMapping("/api/comments/{cid}")
+	public List<Comment> deleteComment(
+            @PathVariable("cid") Integer cid) {
+        commentRepository.deleteById(cid);
+        return commentRepository.findAllComments();
+    }
+
+
 }

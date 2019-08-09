@@ -9,21 +9,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="tracks")
 public class Track {
 	@Id
-	private int id;
+	private String id;
     private String name;
     
     @ManyToMany(mappedBy = "tracks")
 	@JsonIgnore
     private List<Playlist> playlists;
 
-    @OneToMany(mappedBy = "track")
-    private List<TrackComment> trackComments;
+    // @OneToMany(mappedBy = "track")
+    // private List<TrackComment> trackComments;
 
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -48,13 +48,13 @@ public class Track {
 		this.playlists = playlists;
     }
     
-	public List<TrackComment> getTrackComments() {
-		return this.trackComments;
-	}
+	// public List<TrackComment> getTrackComments() {
+	// 	return this.trackComments;
+	// }
 
-	public void setTrackComments(List<TrackComment> trackComments) {
-		this.trackComments = trackComments;
-	}
+	// public void setTrackComments(List<TrackComment> trackComments) {
+	// 	this.trackComments = trackComments;
+	// }
 
 
     

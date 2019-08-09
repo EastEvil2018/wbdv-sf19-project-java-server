@@ -21,7 +21,6 @@ public class Playlist {
 	@JoinTable(name="AddToPlaylist", 
 		joinColumns=@JoinColumn(name="playlistId", referencedColumnName = "id"),
 		inverseJoinColumns =@JoinColumn(name="trackId", referencedColumnName = "id"))
-	@JsonIgnore
 	private List<Track> tracks;
 
 	public int getId() {
@@ -48,11 +47,11 @@ public class Playlist {
 		this.user = user;
 	}
 
-	public List<Track> getTrackIds() {
+	public List<Track> getTracks() {
 		return this.tracks;
 	}
 
-	public void setTrackIds(List<Track> tracks) {
+	public void setTracks(List<Track> tracks) {
 		this.tracks = tracks;
 	}
 
