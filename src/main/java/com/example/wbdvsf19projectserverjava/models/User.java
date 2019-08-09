@@ -21,7 +21,7 @@ public class User {
 	private String lastName; 
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
-	private String profilePhote;
+	private String profilePhoto;
 
 	@ManyToMany
 	@JoinTable(name="following", 
@@ -48,7 +48,7 @@ public class User {
 		this.firstName = newUser.firstName;
 		this.lastName = newUser.lastName;
 		this.role = newUser.role;
-		this.profilePhote = newUser.profilePhote;
+		this.profilePhoto = newUser.profilePhoto;
 	}
 
 	
@@ -86,11 +86,11 @@ public class User {
 	}
 
 	public String getProfilePhote() {
-		return this.profilePhote;
+		return this.profilePhoto;
 	}
 
 	public void setProfilePhote(String profilePhote) {
-		this.profilePhote = profilePhote;
+		this.profilePhoto = profilePhote;
 	}
 	
 	public int getId() {
