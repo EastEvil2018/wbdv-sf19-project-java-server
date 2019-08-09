@@ -21,7 +21,7 @@ public class User {
 	private String lastName; 
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
-	private String profilePhoto;
+	private byte[] profilePhoto;
 
 	@ManyToMany
 	@JoinTable(name="following", 
@@ -85,11 +85,11 @@ public class User {
 		this.role = role;
 	}
 
-	public String getProfilePhoto() {
+	public byte[] getProfilePhoto() {
 		return this.profilePhoto;
 	}
 
-	public void setProfilePhoto(String profilePhoto) {
+	public void setProfilePhoto(byte[] profilePhoto) {
 		this.profilePhoto = profilePhoto;
 	}
 	
