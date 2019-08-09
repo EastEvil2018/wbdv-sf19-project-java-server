@@ -80,8 +80,8 @@ public class User {
 		return this.role;
 	}
 
-	public void setUserType(RoleType userType) {
-		this.role = userType;
+	public void setUserType(RoleType role) {
+		this.role = role;
 	}
 
 	public String getProfilePhote() {
