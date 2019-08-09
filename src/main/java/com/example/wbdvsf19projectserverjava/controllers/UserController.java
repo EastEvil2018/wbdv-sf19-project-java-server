@@ -39,8 +39,7 @@ public class UserController {
             session.setAttribute("user", user);
             return user;
         } else {
-            Message message = new Message();
-            message.set("Login failed");
+            Message message = new Message("Login failed");
             return message;
         }
 	}
@@ -50,8 +49,7 @@ public class UserController {
 		if (session.getAttribute("user") != null) {
             return session.getAttribute("user");
         } else {
-            Message message = new Message();
-            message.set("No user session");
+            Message message = new Message("No user session");
 			return message;
         }  
 	}
