@@ -4,8 +4,8 @@ import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-enum UserType {
-	user, admin;
+enum RoleType {
+	USER, ADMIN;
 }
 
 @Entity
@@ -20,7 +20,7 @@ public class User {
 	private String firstName;
 	private String lastName; 
 	@Enumerated(EnumType.STRING)
-	private UserType userType;
+	private RoleType role;
 	private String profilePhote;
 
 	@ManyToMany
@@ -47,9 +47,8 @@ public class User {
 		this.password = newUser.password;
 		this.firstName = newUser.firstName;
 		this.lastName = newUser.lastName;
-		this.userType = newUser.userType;
+		this.role = newUser.role;
 		this.profilePhote = newUser.profilePhote;
-		this.playlists = newUser.playlists;
 	}
 
 	
@@ -77,12 +76,12 @@ public class User {
 		this.followers = followers;
 	}
 
-	public UserType getUserType() {
-		return this.userType;
+	public RoleType getUserType() {
+		return this.role;
 	}
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setUserType(RoleType userType) {
+		this.role = userType;
 	}
 
 	public String getProfilePhote() {
