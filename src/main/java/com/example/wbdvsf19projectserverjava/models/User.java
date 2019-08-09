@@ -3,6 +3,7 @@ import javax.persistence.*;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mysql.jdbc.Blob;
 
 enum RoleType {
 	USER, ADMIN;
@@ -24,7 +25,7 @@ public class User {
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
-	private byte[] profilePhoto;
+	private Blob profilePhoto;
 
 	@ManyToMany
 	@JoinTable(name="following", 
@@ -88,11 +89,11 @@ public class User {
 		this.role = role;
 	}
 
-	public byte[] getProfilePhoto() {
+	public Blob getProfilePhoto() {
 		return this.profilePhoto;
 	}
 
-	public void setProfilePhoto(byte[] profilePhoto) {
+	public void setProfilePhoto(Blob profilePhoto) {
 		this.profilePhoto = profilePhoto;
 	}
 	
