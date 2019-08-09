@@ -49,6 +49,7 @@ public class UserController {
 		if (session.getAttribute("user") != null) {
             return session.getAttribute("user");
         } else {
+            System.out.println(session.getAttribute("user"));
             Message message = new Message("No user session");
 			return message;
         }  
