@@ -37,7 +37,7 @@ public class UserController {
             User user = users.get(0);
             user.setPassword("");
             session.setAttribute("user", user);
-            return user;
+            return session.getAttribute("user");
         } else {
             Message message = new Message("Login failed");
             return message;
