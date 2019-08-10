@@ -1,8 +1,12 @@
 package com.example.wbdvsf19projectserverjava.models;
 import javax.persistence.*;
+
+import java.sql.Timestamp;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 enum RoleType {
 	USER, ADMIN;
@@ -21,10 +25,15 @@ public class User {
 	private String lastName; 
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
+	private String intro;
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] profilePhoto;
+
+	@Column(nullable = false, updatable = false)
+	@CreationTimestamp
+	private Timestamp createTime;
 
 	@ManyToMany
 	@JoinTable(name="following", 
@@ -44,6 +53,20 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Favorite> favorites;
+
+	public User() {
+
+	}
+	public User(RawUser rawUser) {
+		this.username = rawUser.getUsername();
+		this.password = rawUser.getPassword();
+		this.firstName = rawUser.getFirstName();
+		this.lastName = rawUser.getLastName();
+		this.role = rawUser.getRole();
+		this.intro = rawUser.getIntro();
+		byte[] decodedString = rawUser.getprofilePhoto().getBytes();
+		this.profilePhoto = decodedString;
+	}
 
 	public void set(User newUser) {
 		this.username = newUser.username;
@@ -128,6 +151,15 @@ public class User {
 	}
 
 	
+	public String getIntro() {
+		return this.intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+	
 	public List<Comment> getComments() {
 		return this.comments;
 	}
@@ -142,5 +174,13 @@ public class User {
 
 	public void setFavorites(List<Favorite> favorites) {
 		this.favorites = favorites;
+	}
+
+	public Timestamp getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 }

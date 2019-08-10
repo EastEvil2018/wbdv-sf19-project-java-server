@@ -3,6 +3,9 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+
 enum ObjectType {
     TRACK, ARTIST, ALBUM;
 }
@@ -20,6 +23,20 @@ public class Favorite {
     private String objectId;
     @Enumerated(EnumType.STRING)
     private ObjectType objectType;
+
+	@Column(nullable = false, updatable = false)
+	@CreationTimestamp
+	private Timestamp createTime;
+
+	@Transient
+    public String getUsername() {
+        return user.getUsername();
+	}
+	
+	@Transient
+    public int getUserId() {
+        return user.getId();
+	}
 
 	public int getId() {
 		return this.id;
@@ -51,6 +68,14 @@ public class Favorite {
 
 	public void setObjectType(ObjectType objectType) {
 		this.objectType = objectType;
-    }
+	}
+	
+	public Timestamp getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
 
 }

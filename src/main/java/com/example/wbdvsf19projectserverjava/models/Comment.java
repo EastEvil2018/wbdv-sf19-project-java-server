@@ -1,7 +1,11 @@
 package com.example.wbdvsf19projectserverjava.models;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "comments")
@@ -12,9 +16,23 @@ public class Comment {
 
 	private String comment;
 
+	@Column(nullable = false, updatable = false)
+	@CreationTimestamp
+	private Timestamp createTime;
+
     @ManyToOne
     @JsonIgnore
     private User user;
+
+	@Transient
+    public String getUsername() {
+        return user.getUsername();
+	}
+	
+	@Transient
+    public int getUserId() {
+        return user.getId();
+	}
 
     private String objectId;
     @Enumerated(EnumType.STRING)
@@ -59,5 +77,14 @@ public class Comment {
 	public void setObjectType(ObjectType objectType) {
 		this.objectType = objectType;
 	}
+	
+	public Timestamp getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+
 
 }

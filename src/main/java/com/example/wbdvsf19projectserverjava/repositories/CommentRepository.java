@@ -1,6 +1,9 @@
 package com.example.wbdvsf19projectserverjava.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
+import java.awt.print.Pageable;
 import java.util.*;
 
 import org.springframework.data.jpa.repository.Query;
@@ -22,5 +25,8 @@ public interface CommentRepository
     public List<Comment> findCommentsForUser(@Param("uid") Integer uid);
 
     @Query("select comment from Comment comment where comment.objectId=:oid")
-    public List<Comment> findCommentsForObject(@Param("oid") String oid);
+	public List<Comment> findCommentsForObject(@Param("oid") String oid);
+	
+	@Query("select comment from Comment comment order by comment.createTime desc")
+	public Page<Comment> findMostRecentComments(PageRequest pageable);
 }

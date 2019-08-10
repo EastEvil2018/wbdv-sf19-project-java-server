@@ -3,7 +3,8 @@ import javax.persistence.*;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name="playlists")
 public class Playlist {
@@ -22,6 +23,20 @@ public class Playlist {
 		joinColumns=@JoinColumn(name="playlistId", referencedColumnName = "id"),
 		inverseJoinColumns =@JoinColumn(name="trackId", referencedColumnName = "id"))
 	private List<Track> tracks;
+
+	@Column(nullable = false, updatable = false)
+	@CreationTimestamp
+	private Timestamp createTime;
+	
+	@Transient
+    public String getUsername() {
+        return user.getUsername();
+	}
+	
+	@Transient
+    public int getUserId() {
+        return user.getId();
+	}
 
 	public int getId() {
 		return this.id;
@@ -57,6 +72,14 @@ public class Playlist {
 
 	public void set(Playlist newPlaylist) {
         this.name = newPlaylist.name;
+	}
+
+	public Timestamp getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 
 }

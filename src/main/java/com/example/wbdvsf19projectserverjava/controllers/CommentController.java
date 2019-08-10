@@ -5,6 +5,8 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.Comment;
@@ -71,14 +73,22 @@ public class CommentController {
 
     @GetMapping("/api/users/{uid}/comments") 
     public List<Comment> findAllCommentsForUser(
-        @PathVariable("uid") Integer uid) {
-            return commentRepository.findCommentsForUser(uid);
+            @PathVariable("uid") Integer uid) {
+        return commentRepository.findCommentsForUser(uid);
     }
 
     @GetMapping("/api/objects/{oid}/comments") 
     public List<Comment> findAllCommentsForObject(
             @PathVariable("oid") String oid) {
         return commentRepository.findCommentsForObject(oid);
+    }
+
+    @GetMapping("/api/comments/recent/{num}")
+    public List<Comment> findMostRecentComments(
+            @PathVariable("num") int num) {
+        Page<Comment> pageable = commentRepository.findMostRecentComments(PageRequest.of(0, num));
+        List<Comment> comments = pageable.getContent();
+        return comments;
     }
 
     @DeleteMapping("/api/comments/{cid}")

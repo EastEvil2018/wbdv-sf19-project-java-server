@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.wbdvsf19projectserverjava.models.Message;
+import com.example.wbdvsf19projectserverjava.models.RawUser;
 import com.example.wbdvsf19projectserverjava.models.User;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 
@@ -53,7 +54,8 @@ public class UserController {
 
 	@PostMapping("/api/users")
 	public User createUser(
-            @RequestBody User newUser) {
+            @RequestBody RawUser rawUser) {
+        User newUser = new User(rawUser);
         userRepository.save(newUser);
         return newUser;
     }
@@ -64,9 +66,12 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{uid}")
-    public User findUserById(
-        @PathVariable("uid") Integer id) {
-        return userRepository.findUserById(id);
+    public RawUser findUserById(
+            @PathVariable("uid") Integer id) {
+        User user = userRepository.findUserById(id);
+        RawUser rawUser = new RawUser();
+        rawUser.set(user);
+        return rawUser;
     }
 
     @PutMapping("/api/users/{uid}")
