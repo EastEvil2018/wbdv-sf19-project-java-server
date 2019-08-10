@@ -20,6 +20,7 @@ public class User {
 	private int id;
 	
 	private String username;
+	@JsonIgnore
 	private String password;
 	private String firstName;
 	private String lastName; 
