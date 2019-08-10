@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins="https://wbdv-sf19-project-java-server.herokuapp.com", maxAge=3600, allowCredentials = "true")
+@CrossOrigin(origins="*", maxAge=3600, allowCredentials = "true")
 public class UserController {
 	@Autowired
 	UserRepository userRepository;	
