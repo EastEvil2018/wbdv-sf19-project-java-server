@@ -1,17 +1,13 @@
 package com.example.wbdvsf19projectserverjava.controllers;
 
-import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.Message;
 import com.example.wbdvsf19projectserverjava.models.User;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.None;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins="*", maxAge=3600, allowCredentials = "True")
+// @CrossOrigin(origins="*", maxAge=3600, allowCredentials = "true")
 public class UserController {
 	@Autowired
 	UserRepository userRepository;	
