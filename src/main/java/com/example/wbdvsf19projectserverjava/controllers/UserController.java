@@ -12,6 +12,7 @@ import com.example.wbdvsf19projectserverjava.models.RawUser;
 import com.example.wbdvsf19projectserverjava.models.User;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
