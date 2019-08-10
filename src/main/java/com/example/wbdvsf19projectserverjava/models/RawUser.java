@@ -20,6 +20,12 @@ public class RawUser {
 	private Timestamp createTime;
 	private String intro;
 
+	private List<User> followings;
+	private List<User> followers;
+	private List<Playlist> playlists;
+	private List<Comment> comments;
+	private List<Favorite> favorites;
+
 	public void set(User newUser) {
 		this.id = newUser.getId();
 		this.username = newUser.getUsername();
@@ -31,6 +37,11 @@ public class RawUser {
 		byte[] profilePhotoBytes = newUser.getProfilePhoto();
 		this.profilePhoto = new String (profilePhotoBytes);
 		this.createTime = newUser.getCreateTime();
+		this.followers = newUser.getFollowers();
+		this.followings = newUser.getFollowings();
+		this.comments = newUser.getComments();
+		this.favorites = newUser.getFavorites();
+		this.playlists = newUser.getPlaylists();
 	}
 
 	
@@ -99,4 +110,47 @@ public class RawUser {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
+
+	
+	public List<User> getFollowings() {
+		return this.followings;
+	}
+
+	public void setFollowings(List<User> followings) {
+		this.followings = followings;
+	}
+
+	public List<User> getFollowers() {
+		return this.followers;
+	}
+
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
+	}
+
+	public List<Playlist> getPlaylists() {
+		return this.playlists;
+	}
+
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
+	}
+
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<Favorite> getFavorites() {
+		return this.favorites;
+	}
+
+	public void setFavorites(List<Favorite> favorites) {
+		this.favorites = favorites;
+	}
+
+
 }
