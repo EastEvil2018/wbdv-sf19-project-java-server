@@ -2,6 +2,7 @@ package com.example.wbdvsf19projectserverjava.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class UserController {
         if (users.size() != 0) {
             User user = users.get(0);
             user.setPassword("");
+            Cookie cookie = new Cookie(user.getUsername(), session.getId());
+            cookie.setSecure(true);
             session.setAttribute("user", user);
             return session.getAttribute("user");
         } else {
