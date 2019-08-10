@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 public class RawUser {
+	private int id;
 	private String username;
 	private String password;
 	private String firstName;
@@ -20,6 +21,7 @@ public class RawUser {
 	private String intro;
 
 	public void set(User newUser) {
+		this.id = newUser.getId();
 		this.username = newUser.getUsername();
 		this.password = newUser.getPassword();
 		this.firstName = newUser.getFirstName();
@@ -33,6 +35,13 @@ public class RawUser {
 
 	
 	
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public RoleType getRole() {
 		return this.role;

@@ -18,6 +18,9 @@ public interface UserRepository
 	@Query("select user from User user where user.id=:uid")
 	public User findUserById(@Param("uid") Integer id);
 	
+	@Query("select user from User user where user.username=:username")
+	public User findUserByUsername(@Param("username") String username);
+
 	@Query("select user.followings from User user where user.id=:uid")
 	public List<User> findAllFollowingUsersById(@Param("uid") Integer id);
 

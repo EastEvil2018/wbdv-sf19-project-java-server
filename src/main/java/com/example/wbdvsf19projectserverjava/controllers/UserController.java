@@ -35,7 +35,6 @@ public class UserController {
         if (users.size() != 0) {
             User user = users.get(0);
             user.setPassword("");
-            
             session.setAttribute("user", user);
             return session.getAttribute("user");
         } else {
@@ -62,11 +61,17 @@ public class UserController {
     }
 
 	@PostMapping("/api/users")
-	public User createUser(
+	public Object createUser(
             @RequestBody RawUser rawUser) {
-        User newUser = new User(rawUser);
-        userRepository.save(newUser);
-        return newUser;
+        User user = userRepository.findUserByUsername(rawUser.getUsername());
+        if (user != null) {
+            return new Message("Duplicate username");
+        } else {
+            User newUser = new User(rawUser);
+            userRepository.save(newUser);
+            return newUser;
+        }
+        
     }
 
     @GetMapping("/api/users")
