@@ -34,8 +34,7 @@ public class UserController {
         if (users.size() != 0) {
             User user = users.get(0);
             user.setPassword("");
-            Cookie cookie = new Cookie(user.getUsername(), session.getId());
-            cookie.setSecure(true);
+            
             session.setAttribute("user", user);
             return session.getAttribute("user");
         } else {
@@ -53,7 +52,13 @@ public class UserController {
             Message message = new Message("No user session");
 			return message;
         }  
-	}
+    }
+    
+    @GetMapping("/api/logout")
+    public Message logout(HttpSession session) {
+        session.invalidate();
+        return new Message("Log out");
+    }
 
 	@PostMapping("/api/users")
 	public User createUser(
