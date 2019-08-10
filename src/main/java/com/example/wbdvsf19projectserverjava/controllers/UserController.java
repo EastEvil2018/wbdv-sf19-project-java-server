@@ -1,12 +1,12 @@
 package com.example.wbdvsf19projectserverjava.controllers;
 
 import java.util.List;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.wbdvsf19projectserverjava.models.BCrypt;
 import com.example.wbdvsf19projectserverjava.models.Message;
 import com.example.wbdvsf19projectserverjava.models.RawUser;
 import com.example.wbdvsf19projectserverjava.models.User;
@@ -31,9 +31,8 @@ public class UserController {
 	public Object authenticateUser(
             @RequestBody User authUser,
             HttpSession session) {
-        List<User> users = userRepository.findUserByCredentials(authUser.getUsername(), authUser.getPassword());
-        if (users.size() != 0) {
-            User user = users.get(0);
+        User user = userRepository.findUserByUsername(authUser.getUsername());
+        if (user != null && BCrypt.checkpw(authUser.getPassword(), user.getPassword())) {
             user.setPassword("");
             session.setAttribute("user", user);
             return session.getAttribute("user");
@@ -68,6 +67,7 @@ public class UserController {
             return new Message("Duplicate username");
         } else {
             User newUser = new User(rawUser);
+            newUser.setPassword(BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt()));
             userRepository.save(newUser);
             return newUser;
         }
