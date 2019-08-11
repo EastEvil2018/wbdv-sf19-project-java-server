@@ -34,9 +34,9 @@ public class Comment {
         return user.getId();
 	}
 
-    private String objectId;
+    private String productId;
     @Enumerated(EnumType.STRING)
-    private ObjectType objectType;
+    private ProductType productType;
 
 	public int getId() {
 		return this.id;
@@ -54,12 +54,12 @@ public class Comment {
 		this.comment = comment;
     }
     
-	public String getObjectId() {
-		return this.objectId;
+	public String getProductId() {
+		return this.productId;
 	}
 
-	public void setObjectId(String objectId) {
-		this.objectId = objectId;
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
     
 	public User getUser() {
@@ -70,12 +70,12 @@ public class Comment {
 		this.user = user;
     }
     
-	public ObjectType getObjectType() {
-		return this.objectType;
+	public ProductType getProductType() {
+		return this.productType;
 	}
 
-	public void setObjectType(ObjectType objectType) {
-		this.objectType = objectType;
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
 	
 	public Timestamp getCreateTime() {

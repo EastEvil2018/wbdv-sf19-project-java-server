@@ -11,6 +11,7 @@ import org.springframework.data.repository.*;
 import org.springframework.data.repository.query.Param;
 
 import com.example.wbdvsf19projectserverjava.models.Comment;
+import com.example.wbdvsf19projectserverjava.models.ProductType;
 
 public interface CommentRepository 
 	extends CrudRepository<Comment, Integer> {
@@ -24,8 +25,8 @@ public interface CommentRepository
     @Query("select comment from Comment comment where comment.user.id=:uid")
     public List<Comment> findCommentsForUser(@Param("uid") Integer uid);
 
-    @Query("select comment from Comment comment where comment.objectId=:oid")
-	public List<Comment> findCommentsForObject(@Param("oid") String oid);
+    @Query("select comment from Comment comment where comment.productId=:oid and comment.productType=:type")
+	public List<Comment> findCommentsForProduct(@Param("oid") String oid, @Param("type") ProductType type);
 	
 	@Query("select comment from Comment comment order by comment.createTime desc")
 	public Page<Comment> findMostRecentComments(PageRequest pageable);

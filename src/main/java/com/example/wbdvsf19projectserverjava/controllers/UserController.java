@@ -29,11 +29,10 @@ public class UserController {
 
 	@PostMapping("/api/auth")
 	public Object authenticateUser(
-            @RequestBody User authUser,
+            @RequestBody RawUser rawUser,
             HttpSession session) {
-        User user = userRepository.findUserByUsername(authUser.getUsername());
-        if (user != null && BCrypt.checkpw(authUser.getPassword(), user.getPassword())) {
-            user.setPassword("");
+        User user = userRepository.findUserByUsername(rawUser.getUsername());
+        if (user != null && BCrypt.checkpw(rawUser.getPassword(), user.getPassword())) {
             session.setAttribute("user", user);
             return session.getAttribute("user");
         } else {

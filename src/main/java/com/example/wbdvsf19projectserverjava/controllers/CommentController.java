@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.Comment;
+import com.example.wbdvsf19projectserverjava.models.ProductType;
 import com.example.wbdvsf19projectserverjava.models.Track;
 
 import com.example.wbdvsf19projectserverjava.models.User;
@@ -44,21 +45,6 @@ public class CommentController {
         commentRepository.save(comment);
         return commentRepository.findCommentsForUser(userId);
     }
-        // switch(commentType) {
-        //     case "Track":
-        //         Track track = trackRepository.findTrackById(objectId);
-        //         TrackComment trackComment = new TrackComment(comment);
-        //         user.getTrackComments().add(trackComment);
-        //         track.getTrackComments().add(trackComment);
-        //         trackCommentRepository.save(trackComment);
-        //         return trackCommentRepository.findTrackCommentsForUser(userId);
-        //     case "Album":
-        //         break;
-        //     case "Artist":
-        //         break;
-        //     default:
-        //         break;
-        // }
 
     @GetMapping("/api/comments") 
     public List<Comment> findAllComments() {
@@ -78,9 +64,10 @@ public class CommentController {
     }
 
     @GetMapping("/api/objects/{oid}/comments") 
-    public List<Comment> findAllCommentsForObject(
-            @PathVariable("oid") String oid) {
-        return commentRepository.findCommentsForObject(oid);
+    public List<Comment> findAllCommentsForProduct(
+            @PathVariable("oid") String oid,
+            @PathVariable("type") ProductType type) {
+        return commentRepository.findCommentsForProduct(oid, type);
     }
 
     @GetMapping("/api/comments/recent/{num}")

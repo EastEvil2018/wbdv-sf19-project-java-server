@@ -7,9 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.wbdvsf19projectserverjava.models.Favorite;
+import com.example.wbdvsf19projectserverjava.models.*;
 
-import com.example.wbdvsf19projectserverjava.models.User;
 import com.example.wbdvsf19projectserverjava.repositories.FavoriteRepository;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
 
@@ -58,10 +57,12 @@ public class FavoriteController {
             return favoriteRepository.findFavoritesForUser(uid);
     }
 
-    @GetMapping("/api/objects/{oid}/favorites") 
-    public List<Favorite> findAllFavoritesForObject(
-            @PathVariable("oid") String oid) {
-        return favoriteRepository.findFavoritesForObject(oid);
+    @GetMapping("/api/products/{type}/{oid}/favorites") 
+    public List<Favorite> findAllFavoritesForProduct(
+            @PathVariable("oid") String oid,
+            @PathVariable("type") ProductType type) {
+        
+        return favoriteRepository.findFavoritesForProduct(oid, type);
     }
 
     @DeleteMapping("/api/favorites/{lid}")

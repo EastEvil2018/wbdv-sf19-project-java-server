@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 
-enum ObjectType {
-    TRACK, ARTIST, ALBUM;
-}
+
 @Entity
 @Table(name = "favorites")
 public class Favorite {
@@ -20,9 +18,9 @@ public class Favorite {
     @JsonIgnore
     private User user;
 
-    private String objectId;
+    private String productId;
     @Enumerated(EnumType.STRING)
-    private ObjectType objectType;
+    private ProductType productType;
 
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
@@ -46,12 +44,12 @@ public class Favorite {
 		this.id = id;
 	}
     
-	public String getObjectId() {
-		return this.objectId;
+	public String getProductId() {
+		return this.productId;
 	}
 
-	public void setObjectId(String objectId) {
-		this.objectId = objectId;
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
     
 	public User getUser() {
@@ -62,12 +60,12 @@ public class Favorite {
 		this.user = user;
     }
     
-	public ObjectType getObjectType() {
-		return this.objectType;
+	public ProductType getProductType() {
+		return this.productType;
 	}
 
-	public void setObjectType(ObjectType objectType) {
-		this.objectType = objectType;
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
 	
 	public Timestamp getCreateTime() {
