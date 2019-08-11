@@ -25,7 +25,8 @@ public class Favorite {
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp createTime;
-
+	private String productName;
+	
 	@Transient
     public String getUsername() {
         return user.getUsername();
@@ -74,6 +75,14 @@ public class Favorite {
 
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getProductName() {
+		return this.productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 }

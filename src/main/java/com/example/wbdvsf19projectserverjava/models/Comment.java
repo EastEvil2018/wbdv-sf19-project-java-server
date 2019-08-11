@@ -37,6 +37,7 @@ public class Comment {
     private String productId;
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+	private String productName;
 
 	public int getId() {
 		return this.id;
@@ -86,5 +87,12 @@ public class Comment {
 		this.createTime = createTime;
 	}
 
+	public String getProductName() {
+		return this.productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 
 }
