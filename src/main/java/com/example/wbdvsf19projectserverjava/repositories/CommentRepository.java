@@ -25,8 +25,8 @@ public interface CommentRepository
     @Query("select comment from Comment comment where comment.user.id=:uid")
     public List<Comment> findCommentsForUser(@Param("uid") Integer uid);
 
-    @Query("select comment from Comment comment where comment.productId=:oid and comment.productType=:type")
-	public List<Comment> findCommentsForProduct(@Param("oid") String oid, @Param("type") ProductType type);
+    @Query("select comment from Comment comment where comment.productId=:pid and comment.productType=:type")
+	public List<Comment> findCommentsForProduct(@Param("pid") String pid, @Param("type") ProductType type);
 	
 	@Query("select comment from Comment comment order by comment.createTime desc")
 	public Page<Comment> findMostRecentComments(PageRequest pageable);

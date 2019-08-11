@@ -72,5 +72,15 @@ public class FavoriteController {
         return favoriteRepository.findAllFavorites();
     }
 
+    @DeleteMapping("/api/users/{uid}/products/{type}/{pid}/favorites")
+	public List<Favorite> unfavoriteProduct(
+        @PathVariable("uid") Integer uid,
+        @PathVariable("pid") String pid,
+        @PathVariable("type") ProductType type) {
+        favoriteRepository.delete(favoriteRepository.findFavoriteForUserOfProduct(uid, pid, type));
+        return favoriteRepository.findFavoritesForProduct(pid, type);
+    }
+
+
 
 }

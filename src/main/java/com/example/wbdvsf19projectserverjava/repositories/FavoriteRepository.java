@@ -22,6 +22,9 @@ public interface FavoriteRepository
     @Query("select favorite from Favorite favorite where favorite.user.id=:uid")
     public List<Favorite> findFavoritesForUser(@Param("uid") Integer uid);
 
-    @Query("select favorite from Favorite favorite where favorite.productId=:oid and favorite.productType=:type")
-    public List<Favorite> findFavoritesForProduct(@Param("oid") String oid, @Param("type") ProductType type);
+    @Query("select favorite from Favorite favorite where favorite.productId=:pid and favorite.productType=:type")
+	public List<Favorite> findFavoritesForProduct(@Param("pid") String pid, @Param("type") ProductType type);
+	
+	@Query("select favorite from Favorite favorite where favorite.productId=:pid and favorite.productType=:type and favorite.user.id=:uid")
+    public Favorite findFavoriteForUserOfProduct(@Param("uid") Integer uid, @Param("pid") String pid, @Param("type") ProductType type);
 }
