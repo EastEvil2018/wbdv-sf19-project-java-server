@@ -78,6 +78,17 @@ public class User {
 		this.profilePhoto = newUser.profilePhoto;
 	}
 
+	public void set(RawUser rawUser) {
+		this.username = rawUser.getUsername();
+		this.password = rawUser.getPassword();
+		this.firstName = rawUser.getFirstName();
+		this.lastName = rawUser.getLastName();
+		this.role = rawUser.getRole();
+		this.intro = rawUser.getIntro();
+		byte[] decodedString = rawUser.getprofilePhoto().getBytes();
+		this.profilePhoto = decodedString;
+	}
+
 	
 	public List<Playlist> getPlaylists() {
 		return this.playlists;

@@ -73,7 +73,7 @@ public class FavoriteController {
     }
 
     @DeleteMapping("/api/users/{uid}/products/{type}/{pid}/favorites")
-	public List<Favorite> unfavoriteProduct(
+	public List<Favorite> deleteFavoriteForUserOfProduct(
         @PathVariable("uid") Integer uid,
         @PathVariable("pid") String pid,
         @PathVariable("type") ProductType type) {

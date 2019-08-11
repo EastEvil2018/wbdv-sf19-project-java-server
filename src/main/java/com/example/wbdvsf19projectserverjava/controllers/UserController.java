@@ -68,7 +68,8 @@ public class UserController {
             User newUser = new User(rawUser);
             newUser.setPassword(BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt()));
             userRepository.save(newUser);
-            return newUser;
+            rawUser.set(newUser);
+            return rawUser;
         }
         
     }
@@ -88,13 +89,15 @@ public class UserController {
     }
 
     @PutMapping("/api/users/{uid}")
-    public User updateUser(
+    public RawUser updateUser(
         @PathVariable("uid") Integer id,
-        @RequestBody User newUser) {
+        @RequestBody RawUser rawUser) {
         User user = userRepository.findUserById(id);
-        user.set(newUser);
+        user.set(rawUser);
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
-        return newUser;
+        rawUser.set(user);
+        return rawUser;
     }
 
     @DeleteMapping("/api/users/{uid}")

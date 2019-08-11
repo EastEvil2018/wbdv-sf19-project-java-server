@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.wbdvsf19projectserverjava.models.Comment;
+import com.example.wbdvsf19projectserverjava.models.Message;
 import com.example.wbdvsf19projectserverjava.models.ProductType;
 import com.example.wbdvsf19projectserverjava.models.Track;
 
@@ -79,10 +80,10 @@ public class CommentController {
     }
 
     @DeleteMapping("/api/comments/{cid}")
-	public List<Comment> deleteComment(
+	public Message deleteComment(
             @PathVariable("cid") Integer cid) {
         commentRepository.deleteById(cid);
-        return commentRepository.findAllComments();
+        return new Message("Comment deleted");
     }
 
 
