@@ -63,7 +63,7 @@ public class CommentController {
         return commentRepository.findCommentsForUser(uid);
     }
 
-    @GetMapping("/api/objects/{oid}/comments") 
+    @GetMapping("/api/products/{type}/{oid}/comments") 
     public List<Comment> findAllCommentsForProduct(
             @PathVariable("oid") String oid,
             @PathVariable("type") ProductType type) {
