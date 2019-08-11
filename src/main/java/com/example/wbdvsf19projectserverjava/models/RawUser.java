@@ -37,8 +37,18 @@ public class RawUser {
 		byte[] profilePhotoBytes = newUser.getProfilePhoto();
 		this.profilePhoto = new String (profilePhotoBytes);
 		this.createTime = newUser.getCreateTime();
-		this.followers = newUser.getFollowers();
-		this.followings = newUser.getFollowings();
+		List<User> followers = newUser.getFollowers();
+		for (User user: followers) {
+			user.setFollowers(null);
+			user.setFollowings(null);
+		}
+		this.followers = followers;
+		List<User> followings= newUser.getFollowings();
+		for (User user: followings) {
+			user.setFollowers(null);
+			user.setFollowings(null);
+		}
+		this.followings = followings;
 		this.comments = newUser.getComments();
 		this.favorites = newUser.getFavorites();
 		this.playlists = newUser.getPlaylists();

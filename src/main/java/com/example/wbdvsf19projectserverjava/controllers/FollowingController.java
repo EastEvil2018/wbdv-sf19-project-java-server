@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.wbdvsf19projectserverjava.models.Message;
+import com.example.wbdvsf19projectserverjava.models.RawUser;
 import com.example.wbdvsf19projectserverjava.models.User;
 
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
@@ -27,34 +29,48 @@ public class FollowingController {
 	UserRepository repository;	
 
 	@PostMapping("/api/users/{followerId}/follow/users/{followeeId}")
-	public List<User> followUser(
+	public Message followUser(
         @PathVariable("followerId") Integer followerId,
         @PathVariable("followeeId") Integer followeeId) {
         User follower = repository.findUserById(followerId);
         follower.getFollowings().add(repository.findUserById(followeeId));
         repository.save(follower);
-        return repository.findAllFollowingUsersById(followerId);
+        return new Message("User followed");
     }
 
     @DeleteMapping("/api/users/{followerId}/unfollow/users/{followeeId}")
-	public List<User> unfollowUser(
+	public Message unfollowUser(
         @PathVariable("followerId") Integer followerId,
         @PathVariable("followeeId") Integer followeeId) {
         User follower = repository.findUserById(followerId);
         follower.getFollowings().remove(repository.findUserById(followeeId));
         repository.save(follower);
-        return repository.findAllFollowingUsersById(followerId);
+        return new Message("User unfollowed");
     }
 
     @GetMapping("/api/users/{uid}/followings") 
-    public List<User> findAllFollowingUsers(
-        @PathVariable("uid") Integer uid) {
-            return repository.findAllFollowingUsersById(uid);
+    public List<RawUser> findAllFollowingUsers(
+            @PathVariable("uid") Integer uid) {
+        List<User> users = repository.findAllFollowingUsersById(uid);
+        List<RawUser> rawUsers = new ArrayList<>();
+        for (User user: users) {
+            RawUser rawUser = new RawUser();
+            rawUser.set(user);
+            rawUsers.add(rawUser);
+        }
+        return rawUsers;
     }
 
     @GetMapping("/api/users/{uid}/followers") 
-    public List<User> findAllFollowerUsers(
-        @PathVariable("uid") Integer uid) {
-            return repository.findAllFollowerUsersById(uid);
+    public List<RawUser> findAllFollowerUsers(
+            @PathVariable("uid") Integer uid) {
+        List<User> users = repository.findAllFollowerUsersById(uid);
+        List<RawUser> rawUsers = new ArrayList<>();
+        for (User user: users) {
+            RawUser rawUser = new RawUser();
+            rawUser.set(user);
+            rawUsers.add(rawUser);
+        }
+        return rawUsers;
     }
 }

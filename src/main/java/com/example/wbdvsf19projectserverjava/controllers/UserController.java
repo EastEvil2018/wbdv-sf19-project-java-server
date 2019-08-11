@@ -33,7 +33,8 @@ public class UserController {
             HttpSession session) {
         User user = userRepository.findUserByUsername(rawUser.getUsername());
         if (user != null && BCrypt.checkpw(rawUser.getPassword(), user.getPassword())) {
-            session.setAttribute("user", user);
+            rawUser.set(user);
+            session.setAttribute("user", rawUser);
             return session.getAttribute("user");
         } else {
             Message message = new Message("Login failed");
