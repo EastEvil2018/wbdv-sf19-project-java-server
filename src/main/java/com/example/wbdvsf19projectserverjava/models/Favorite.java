@@ -20,13 +20,14 @@ public class Favorite {
 
     private String productId;
     @Enumerated(EnumType.STRING)
-    private ProductType productType;
+	private ProductType productType;
+	private String productImageUrl;
 
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp createTime;
 	private String productName;
-	
+
 	@Transient
     public String getUsername() {
         return user.getUsername();
@@ -83,6 +84,15 @@ public class Favorite {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	
+	public String getProductImageUrl() {
+		return this.productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
 	}
 
 }
