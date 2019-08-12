@@ -38,7 +38,8 @@ public class Comment {
     @Enumerated(EnumType.STRING)
     private ProductType productType;
 	private String productName;
-
+	private String productImageUrl;
+	
 	public int getId() {
 		return this.id;
 	}
@@ -94,5 +95,14 @@ public class Comment {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
+	public String getProductImageUrl() {
+		return this.productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
+	}
+
 
 }
