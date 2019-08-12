@@ -107,10 +107,12 @@ public class UserController {
 
     @DeleteMapping("/api/users/{uid}")
     public Message deleteUser(
-        @PathVariable("uid") Integer id) {
+        @PathVariable("uid") Integer id,
+        HttpSession session) {
         followingService.deleteUserFollowers(id);
         followingService.deleteUserFollowings(id);
         userRepository.deleteById(id);
+        session.invalidate();
         return new Message("User Deleted");
     }
 }
