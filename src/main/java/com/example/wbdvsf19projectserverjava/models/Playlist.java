@@ -18,7 +18,7 @@ public class Playlist {
     @JsonIgnore
 	private User user;
 
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="AddToPlaylist", 
 		joinColumns=@JoinColumn(name="playlistId", referencedColumnName = "id"),
 		inverseJoinColumns =@JoinColumn(name="trackId", referencedColumnName = "id"))

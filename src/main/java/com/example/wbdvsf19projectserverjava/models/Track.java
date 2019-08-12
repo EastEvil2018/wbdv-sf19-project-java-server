@@ -12,7 +12,7 @@ public class Track {
 	private String id;
     private String name;
     
-    @ManyToMany(mappedBy = "tracks")
+    @ManyToMany(mappedBy = "tracks", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JsonIgnore
     private List<Playlist> playlists;
 
