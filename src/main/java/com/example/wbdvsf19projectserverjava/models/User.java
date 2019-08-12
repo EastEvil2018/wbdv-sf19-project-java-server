@@ -46,15 +46,21 @@ public class User {
 	@JsonIgnore
 	private List<User> followers;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Playlist> playlists;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Favorite> favorites;
 
+	// @PreRemove
+	// private void removeFollowingsFromUsers() {
+	// 	for (User u: users) {
+
+	// 	}
+	// }
 	public User() {
 
 	}

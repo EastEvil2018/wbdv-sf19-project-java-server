@@ -1,17 +1,16 @@
 package com.example.wbdvsf19projectserverjava.models;
-import javax.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.hibernate.annotations.CreationTimestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class RawUser {
 	private int id;
 	private String username;
+	
 	private String password;
 	private String firstName;
 	private String lastName; 
@@ -29,7 +28,6 @@ public class RawUser {
 	public void set(User newUser) {
 		this.id = newUser.getId();
 		this.username = newUser.getUsername();
-		this.password = newUser.getPassword();
 		this.firstName = newUser.getFirstName();
 		this.lastName = newUser.getLastName();
 		this.role = newUser.getRole();
@@ -38,15 +36,19 @@ public class RawUser {
 		this.profilePhoto = new String (profilePhotoBytes);
 		this.createTime = newUser.getCreateTime();
 		List<User> followers = newUser.getFollowers();
-		for (User user: followers) {
-			user.setFollowers(null);
-			user.setFollowings(null);
+		if (followers != null) {
+			for (User user: followers) {
+				user.setFollowers(null);
+				user.setFollowings(null);
+			}
 		}
 		this.followers = followers;
 		List<User> followings= newUser.getFollowings();
-		for (User user: followings) {
-			user.setFollowers(null);
-			user.setFollowings(null);
+		if (followings != null) {
+			for (User user: followings) {
+				user.setFollowers(null);
+				user.setFollowings(null);
+			}
 		}
 		this.followings = followings;
 		this.comments = newUser.getComments();
@@ -86,9 +88,12 @@ public class RawUser {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}

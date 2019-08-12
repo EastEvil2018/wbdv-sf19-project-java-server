@@ -2,8 +2,6 @@ package com.example.wbdvsf19projectserverjava.controllers;
 
 import java.util.*;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,18 +10,20 @@ import com.example.wbdvsf19projectserverjava.models.RawUser;
 import com.example.wbdvsf19projectserverjava.models.User;
 
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
+import com.example.wbdvsf19projectserverjava.services.FollowingService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins="*", maxAge=3600)
 public class FollowingController {
+
+    @Autowired
+    FollowingService followingService;
 
 	@Autowired
 	UserRepository repository;	
@@ -49,7 +49,7 @@ public class FollowingController {
     }
 
     @GetMapping("/api/users/{uid}/followings") 
-    public List<RawUser> findAllFollowingUsers(
+    public List<RawUser> findAllFollowingsForUser(
             @PathVariable("uid") Integer uid) {
         List<User> users = repository.findAllFollowingUsersById(uid);
         List<RawUser> rawUsers = new ArrayList<>();
@@ -62,7 +62,7 @@ public class FollowingController {
     }
 
     @GetMapping("/api/users/{uid}/followers") 
-    public List<RawUser> findAllFollowerUsers(
+    public List<RawUser> findAllFollowersForUser(
             @PathVariable("uid") Integer uid) {
         List<User> users = repository.findAllFollowerUsersById(uid);
         List<RawUser> rawUsers = new ArrayList<>();
@@ -72,5 +72,17 @@ public class FollowingController {
             rawUsers.add(rawUser);
         }
         return rawUsers;
+    }
+
+    @DeleteMapping("/api/users/{uid}/followings")
+    public Message deleteAllFollowingsForUser(
+            @PathVariable("uid") Integer id) {
+        return followingService.deleteUserFollowings(id);
+    }
+
+    @DeleteMapping("/api/users/{uid}/followers")
+    public Message deleteAllFollowersForUser(
+            @PathVariable("uid") Integer id) {
+        return followingService.deleteUserFollowers(id);
     }
 }

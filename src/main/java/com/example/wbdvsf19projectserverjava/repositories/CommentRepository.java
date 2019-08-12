@@ -3,7 +3,6 @@ package com.example.wbdvsf19projectserverjava.repositories;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.awt.print.Pageable;
 import java.util.*;
 
 import org.springframework.data.jpa.repository.Query;

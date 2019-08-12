@@ -2,9 +2,6 @@ package com.example.wbdvsf19projectserverjava.controllers;
 
 import java.util.*;
 
-import javax.servlet.http.HttpSession;
-
-import org.aspectj.weaver.tools.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

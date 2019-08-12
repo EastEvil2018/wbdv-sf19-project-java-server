@@ -1,7 +1,7 @@
 package com.example.wbdvsf19projectserverjava.controllers;
 
 import java.util.List;
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import com.example.wbdvsf19projectserverjava.models.Message;
 import com.example.wbdvsf19projectserverjava.models.RawUser;
 import com.example.wbdvsf19projectserverjava.models.User;
 import com.example.wbdvsf19projectserverjava.repositories.UserRepository;
+import com.example.wbdvsf19projectserverjava.services.FollowingService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	@Autowired
 	UserRepository userRepository;	
+
+    @Autowired
+    FollowingService followingService;
 
 	@PostMapping("/api/auth")
 	public Object authenticateUser(
@@ -102,9 +106,11 @@ public class UserController {
     }
 
     @DeleteMapping("/api/users/{uid}")
-    public List<User> deleteUser(
+    public Message deleteUser(
         @PathVariable("uid") Integer id) {
+        followingService.deleteUserFollowers(id);
+        followingService.deleteUserFollowings(id);
         userRepository.deleteById(id);
-        return userRepository.findAllUsers();
+        return new Message("User Deleted");
     }
 }
