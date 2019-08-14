@@ -87,11 +87,19 @@ public class PlaylistController {
         @PathVariable("tid") String tid) {
         Playlist playlist = playlistRepository.findPlaylistById(pid);
         List<Track> tracks = playlist.getTracks();
-        for (Track tra: tracks) {
-            if (tra.getId().equals(tid)) {
-                tracks.remove(tra);
+        Track trackToDelete = new Track();
+        for (Track track: tracks) {
+            if (track.getId().equals(tid)) {
+                System.out.println(track.getId());
+                System.out.print(tid);
+                trackToDelete = track;
             }
         }
+        if (trackToDelete != null) {
+            tracks.remove(trackToDelete);
+        }
+        
+        playlist.setTracks(tracks);
         playlistRepository.save(playlist);
         return playlist;
     }
