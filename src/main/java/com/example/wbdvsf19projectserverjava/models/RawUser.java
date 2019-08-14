@@ -23,7 +23,7 @@ public class RawUser {
 	private List<User> followers;
 	private List<Playlist> playlists;
 	private List<Comment> comments;
-	private List<Favorite> favorites;
+	private Set<Favorite> favorites;
 
 	public void set(User newUser) {
 		this.id = newUser.getId();
@@ -159,11 +159,11 @@ public class RawUser {
 		this.comments = comments;
 	}
 
-	public List<Favorite> getFavorites() {
+	public Set<Favorite> getFavorites() {
 		return this.favorites;
 	}
 
-	public void setFavorites(List<Favorite> favorites) {
+	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
 	}
 

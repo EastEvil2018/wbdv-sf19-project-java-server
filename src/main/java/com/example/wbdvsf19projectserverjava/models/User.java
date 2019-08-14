@@ -53,7 +53,7 @@ public class User {
 	private List<Comment> comments;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Favorite> favorites;
+	private Set<Favorite> favorites;
 
 	// @PreRemove
 	// private void removeFollowingsFromUsers() {
@@ -186,11 +186,11 @@ public class User {
 		this.comments = comments;
 	}
 	
-	public List<Favorite> getFavorites() {
+	public Set<Favorite> getFavorites() {
 		return this.favorites;
 	}
 
-	public void setFavorites(List<Favorite> favorites) {
+	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
 	}
 
