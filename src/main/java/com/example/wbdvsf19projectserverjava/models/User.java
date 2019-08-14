@@ -55,12 +55,9 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Favorite> favorites;
 
-	// @PreRemove
-	// private void removeFollowingsFromUsers() {
-	// 	for (User u: users) {
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Notification> notifications;
 
-	// 	}
-	// }
 	public User() {
 
 	}
@@ -200,5 +197,13 @@ public class User {
 
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
+	}
+
+	public List<Notification> getNotifications() {
+		return this.notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 }

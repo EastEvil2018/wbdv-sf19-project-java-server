@@ -24,6 +24,7 @@ public class RawUser {
 	private List<Playlist> playlists;
 	private List<Comment> comments;
 	private Set<Favorite> favorites;
+	private List<Notification> notifications;
 
 	public void set(User newUser) {
 		this.id = newUser.getId();
@@ -54,6 +55,7 @@ public class RawUser {
 		this.comments = newUser.getComments();
 		this.favorites = newUser.getFavorites();
 		this.playlists = newUser.getPlaylists();
+		this.notifications = newUser.getNotifications();
 	}
 
 	
@@ -166,6 +168,16 @@ public class RawUser {
 	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
 	}
+
+	
+	public List<Notification> getNotifications() {
+		return this.notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
 
 
 }
