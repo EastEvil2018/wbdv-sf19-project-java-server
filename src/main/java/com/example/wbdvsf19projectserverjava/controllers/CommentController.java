@@ -77,7 +77,9 @@ public class CommentController {
     public Comment updateComment(
             @PathVariable("cid") Integer cid,
             @RequestBody Comment comment){
-        commentRepository.save(comment);
+        Comment oldComment = commentRepository.findCommentById(cid);
+        oldComment.setComment(comment.getComment());
+        commentRepository.save(oldComment);
         return commentRepository.findCommentById(cid);
         
     }
