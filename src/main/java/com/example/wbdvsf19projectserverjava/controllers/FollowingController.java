@@ -33,6 +33,12 @@ public class FollowingController {
         @PathVariable("followerId") Integer followerId,
         @PathVariable("followeeId") Integer followeeId) {
         User follower = repository.findUserById(followerId);
+        List<User> followers = follower.getFollowings();
+        for (User user: followers) {
+            if (user.getId() == followeeId) {
+                return (new Message("User followed"));
+            }
+        }
         follower.getFollowings().add(repository.findUserById(followeeId));
         repository.save(follower);
         return new Message("User followed");
