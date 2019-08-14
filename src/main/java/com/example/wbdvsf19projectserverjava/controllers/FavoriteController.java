@@ -34,6 +34,12 @@ public class FavoriteController {
         @PathVariable("uid") Integer userId,
         @RequestBody Favorite favorite) {
         User user = userRepository.findUserById(userId);
+        for (Favorite fav: user.getFavorites()) {
+            System.out.println(fav.getProductId());
+            if (fav.getProductId().equals(favorite.getProductId())) {
+                return favoriteRepository.findFavoritesForUser(userId);
+            }
+        }
         favorite.setUser(user);
         favoriteRepository.save(favorite);
         return favoriteRepository.findFavoritesForUser(userId);
