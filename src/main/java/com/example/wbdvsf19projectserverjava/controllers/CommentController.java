@@ -73,6 +73,15 @@ public class CommentController {
         return comments;
     }
 
+    @PutMapping("/api/comments/{cid}")
+    public Comment updateComment(
+            @PathVariable("cid") Integer cid,
+            @RequestBody Comment comment){
+        commentRepository.save(comment);
+        return commentRepository.findCommentById(cid);
+        
+    }
+
     @DeleteMapping("/api/comments/{cid}")
 	public Message deleteComment(
             @PathVariable("cid") Integer cid) {

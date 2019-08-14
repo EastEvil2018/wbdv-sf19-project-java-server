@@ -81,6 +81,21 @@ public class PlaylistController {
         return playlist;
     }
 
+    @PutMapping("/api/playlists/{pid}/delete")
+    public Playlist deleteTrackFromPlaylist(
+        @PathVariable("pid") Integer pid,
+        @RequestBody Track track) {
+        Playlist playlist = playlistRepository.findPlaylistById(pid);
+        List<Track> tracks = playlist.getTracks();
+        for (Track tra: tracks) {
+            if (tra.getId().equals(track.getId())) {
+                tracks.remove(tra);
+            }
+        }
+        playlistRepository.save(playlist);
+        return playlist;
+    }
+
     @DeleteMapping("/api/playlists/{pid}")
     public List<Playlist> deletePlaylist(
             @PathVariable("pid") Integer pid) {
